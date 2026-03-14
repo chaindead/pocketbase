@@ -19,6 +19,8 @@ func createSQLiteEquivalentFunctions(db dbx.Builder) error {
 	funcDef := `
 	-- Enable built-in pgcrypto extension to use gen_random_bytes function
 	CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+	-- Include extensions schema for Supabase (pgcrypto lives in extensions schema)
+	SET search_path = public, extensions;
 
 	-- Adding "nocase" collation to be compatible with SQLite's built-in "nocase" collation
 	CREATE COLLATION IF NOT EXISTS "nocase" (
